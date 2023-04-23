@@ -67,11 +67,11 @@ model VerificationToken {
 }
 
 model Todo {
-    id String @id @default(cuid())
+    id        String @id @default(cuid())
     createdAt DateTime @default(now())
-    updateAt DateTime @default(now())
-    text String
-    done Boolean @default(false)
+    updateAt  DateTime @default(now())
+    text      String
+    done      Boolean @default(false)
     user User @relation(fields: [userId], references: [id])
-    userId String
+    userId    String
 }
