@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
-import { todoInput } from "~/server/api/type";
+import { todoInput } from "~/types";
 
 export const todoRouter = createTRPCRouter({
   all: protectedProcedure.query(async ({ ctx }) => {
@@ -9,22 +9,8 @@ export const todoRouter = createTRPCRouter({
         userId: ctx.session.user.id,
       },
     });
-    console.log(
-      "todos from prisma",
-      todos.map(({ id, text, done }) => ({ id, text, done }))
-    );
-    return [
-      {
-        id: "fake-id",
-        text: "fake todo",
-        done: false,
-      },
-      {
-        id: "fake-id2",
-        text: "fake todo2",
-        done: true,
-      },
-    ];
+
+    return todos.map(({ id, text, done }) => ({ id, text, done }));
   }),
   create: protectedProcedure
     .input(todoInput)
